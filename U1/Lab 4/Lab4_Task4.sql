@@ -1,0 +1,1 @@
+SELECT t2.*  FROM t2 where t2.id = '1'; 
