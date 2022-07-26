@@ -1,0 +1,48 @@
+--DROP TABLESPACE ts_sa_clients_data_01 INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+--
+--DROP TABLESPACE ts_sa_orders_data_01 INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+--
+--DROP TABLESPACE ts_sa_employees_data_01 INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+--
+--DROP USER sa_clients CASCADE;
+--
+--DROP USER sa_orders CASCADE;
+--
+--DROP USER sa_employees CASCADE;
+
+
+CREATE TABLESPACE ts_sa_clients_data_01
+DATAFILE '/oracle/u02/oradata/VSadovskaiadb/db_ts_sa_clients_data_01.dat'
+SIZE 150M
+AUTOEXTEND ON NEXT 50M
+SEGMENT SPACE MANAGEMENT AUTO;
+
+CREATE USER sa_clients
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_clients_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_clients;
+
+CREATE TABLESPACE ts_sa_orders_data_01
+DATAFILE '/oracle/u02/oradata/VSadovskaiadb/db_ts_sa_orders_data_01.dat'
+SIZE 200M
+AUTOEXTEND ON NEXT 50M
+SEGMENT SPACE MANAGEMENT AUTO;
+
+CREATE USER sa_orders
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_orders_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_orders;
+
+CREATE TABLESPACE ts_sa_employees_data_01
+DATAFILE '/oracle/u02/oradata/VSadovskaiadb/db_ts_sa_employees_data_01.dat'
+SIZE 100M
+AUTOEXTEND ON NEXT 50M
+SEGMENT SPACE MANAGEMENT AUTO;
+
+CREATE USER sa_employees
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_employees_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_employees;
