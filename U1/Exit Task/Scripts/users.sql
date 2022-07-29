@@ -1,0 +1,104 @@
+--DROP USER sa_clients CASCADE;
+--
+--DROP USER sa_orders CASCADE;
+--
+--DROP USER sa_employees CASCADE;
+--
+--DROP USER dw_cl CASCADE;
+--
+--DROP USER dw_data CASCADE;
+--
+--DROP USER sal_dw_cl CASCADE;
+--
+--DROP USER sal_cl CASCADE;
+--
+--DROP USER dm_client CASCADE;
+--
+--DROP USER dm_order CASCADE;
+--
+--DROP USER dm_employee CASCADE;
+--
+--DROP USER dm_restaurant CASCADE;
+--
+--DROP USER dm_dish CASCADE;
+--
+--DROP USER dm_payment_method CASCADE;
+
+
+CREATE USER sa_clients
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_clients_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_clients;
+
+CREATE USER sa_orders
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_orders_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_orders;
+
+CREATE USER sa_employees
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_employees_data_01;
+
+GRANT CONNECT,RESOURCE TO sa_employees;
+
+ CREATE USER dw_cl
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_dw_cl;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dw_cl;
+
+ CREATE USER dw_data
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_dw_data_01;
+
+GRANT CONNECT,RESOURCE TO dw_data;
+
+CREATE USER sal_dw_cl
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_dw_str_cls;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO sal_dw_cl;
+
+CREATE USER sal_cl
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sal_cl;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO sal_cl;
+
+CREATE USER dm_client
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_dim_client_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_client;
+
+CREATE USER dm_order
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_fct_order_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_order;
+
+CREATE USER dm_employee
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_dim_employee_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_employee;
+
+CREATE USER dm_restaurant
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_dim_restaurant_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_restaurant;
+
+CREATE USER dm_dish
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_dim_dish_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_dish;
+
+CREATE USER dm_payment_method
+  IDENTIFIED BY "%PWD%"
+    DEFAULT TABLESPACE ts_sa_dim_payment_method_01;
+
+GRANT CONNECT,RESOURCE, CREATE VIEW TO dm_payment_method;
