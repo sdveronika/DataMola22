@@ -1,0 +1,212 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/25/2022 9:07:01 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="USER-PC"
+  DTS:CreatorName="USER-PC\user"
+  DTS:DTSID="{D054C451-CA13-4554-9BAB-7F365CD775AF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.694.0"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{18F7D8E5-26AF-40CD-A9C3-28F749D1DE4A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[USER-PC.AdventureWorks2012 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C1A4DE80-4D6B-495D-B4E0-AE4C7334D4A2}"
+      DTS:ObjectName="USER-PC.AdventureWorks2012 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=USER-PC;Initial Catalog=AdventureWorks2012;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{C1A4DE80-4D6B-495D-B4E0-AE4C7334D4A2}USER-PC.AdventureWorks2012 1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="11"
+      DTS:DTSID="{823DB843-39F8-44AD-BCB6-6E174E92A95B}"
+      DTS:ObjectName="ForeachLoopContainer_DelayValidation">
+      <DTS:Property
+        DTS:DataType="11"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{85FB9DCC-9EDA-4259-93F3-20E87C13B633}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\DataMola\Lab script\U3\Lab 2\Task 2\File1.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8C407E5E-1D48-472C-823D-147D173D18A3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IdNumber">
+      <DTS:VariableValue
+        DTS:DataType="3">1</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{A199C037-22DC-4055-9083-FD05961FF9B0}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{C1394F63-6715-4332-A61D-DF8077E7C816}"
+        DTS:ObjectName="{C1394F63-6715-4332-A61D-DF8077E7C816}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="D:\DataMola\Lab script\U3\Lab 2\Task 2" />
+            <FEFEProperty
+              FileSpec="*.txt" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="-1" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="DelayValidation">@[$Package::ForeachLoopContainer_DelayValidation]</DTS:PropertyExpression>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Execute SQL Task"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0D3CC8A9-49C8-4A31-AB56-21E5D1333D77}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Execute SQL Task"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"INSERT INTO [DBO].LOGS VALUES ( "+(DT_WSTR,5)@[User::IdNumber]+" ,'"+ @[User::FilePath] +"',GETDATE())"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{C1A4DE80-4D6B-495D-B4E0-AE4C7334D4A2}"
+              SQLTask:SqlStatementSource="INSERT INTO [DBO].LOGS VALUES ( 1 ,'D:\DataMola\Lab script\U3\Lab 2\Task 2\File1.txt',GETDATE())" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Expression Task"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{0A8C7C58-5761-4F26-9186-6C1416E54CF5}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Expression Task"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::IdNumber]= @[User::IdNumber]+1" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{78E3FBB0-D5CA-454A-BA09-937FC4A35C20}"
+          DTS:From="Package\Foreach Loop Container\Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\Expression Task" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{24F0EC1B-B2A7-4D3B-8465-86F9F6216973}"
+          DTS:ObjectName="{24F0EC1B-B2A7-4D3B-8465-86F9F6216973}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::FilePath" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\Foreach Loop Container\Execute SQL Task"
+          TopLeft="34.6666660706202,18.3684223018525" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Foreach Loop Container\Expression Task"
+          TopLeft="49.874999338761,106.763159800765" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="118.66666607062,61.0350889685191">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.541666601474,45.7280708322454"
+              Start="0,0"
+              End="10.541666601474,38.2280708322454">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.8640354161227" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.8640354161227"
+                    Point2="0,22.8640354161227"
+                    Point3="4,22.8640354161227" />
+                  <mssgle:LineSegment
+                    End="6.54166660147405,22.8640354161227" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.54166660147405,22.8640354161227"
+                    Point2="10.541666601474,22.8640354161227"
+                    Point3="10.541666601474,26.8640354161227" />
+                  <mssgle:LineSegment
+                    End="10.541666601474,38.2280708322454" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="236,253.333333333334"
+          Size="236,296"
+          Id="Package\Foreach Loop Container"
+          TopLeft="42.3749994505197,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
